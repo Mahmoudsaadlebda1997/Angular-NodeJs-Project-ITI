@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/_models/product/product.model';
 import { ProductService } from 'src/app/_services/product/product.service';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -10,42 +9,37 @@ import { of } from 'rxjs';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-
-
-  product :Product = {} as Product;
-  relatedProducts!:Product[];
-
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { }
+  product = {} as Product
+  relatedProducts!: Product[]
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.getProductById();
-    this.getRealtedProducts();
+    console.log(this.activatedRoute.snapshot.params['id']);
+    this.getProductById()
+    this.getRelatedProducts()
   }
-  getProductById(){
+
+  getProductById() {
     this.activatedRoute.params.subscribe(
-      (params)=>{
-        var id =  +this.activatedRoute.snapshot.params['productid'];
+      (params) => {
+        const id = Number(params['id'])
         console.log(params);
-        this.product = this.productService.getProductById(id)!;
-        console.log(this.product);
-      },
-    (err)=>{},
-    ()=> {},
-  //   of(this.activatedRoute.params).subscribe({
-  //     next: (params) =>{  
-  //       const id =  +this.activatedRoute.snapshot.params['productid'];
-  //       console.log(params);
-  //       this.product = this.productService.getProductById(id)!;
-  //       console.log(this.product);
         
-  //       },
-  //     error: (e) => {console.error(e)},
-  //     complete: () => {} 
-  // })
-    
-  )
-   }
-   getRealtedProducts(){
-     this.relatedProducts = this.productService.getAllProducts().slice(0,4);
-   }
-   }
+        this.product = this.productService.getProductById(id)!
+        console.log(this.product);
+      }
+    )
+  }
+  
+  getRelatedProducts() {
+    // this.relatedProducts = this.productService.getAllProducts().slice(0, 4)
+  }
+  onItemAdded() {
+    console.log(this.product);
+    this.productService.addProductToCart(this.product)
+  }
+
+
+}

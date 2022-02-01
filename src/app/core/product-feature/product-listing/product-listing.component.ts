@@ -11,9 +11,6 @@ export class ProductListingComponent implements OnInit {
   productsArray: Product[];
   // @Output()
   itemAdded: EventEmitter<Product> = new EventEmitter<Product>();
-
-    
-
   constructor(private productService: ProductService) 
   { 
     this.productsArray=this.productService.productsArray;

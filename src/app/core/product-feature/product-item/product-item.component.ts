@@ -10,12 +10,14 @@ import { ProductService } from 'src/app/_services/product/product.service';
 export class ProductItemComponent implements OnInit {
   @Input()
   productItem!: Product;
+  productsArray: Product[] =[];
 
   // @Output()
   itemAddedToCart: EventEmitter<Product> = new EventEmitter<Product>();
   
-  constructor(private productService: ProductService) { }
-
+  constructor(private productService: ProductService) { 
+    this.productsArray=this.productService.productsArray;
+  }
 
   ngOnInit(): void {
   }
@@ -24,6 +26,9 @@ export class ProductItemComponent implements OnInit {
     // this.itemAddedToCart.emit(this.productItem);
     this.productService.addProductToCart(this.productItem)
   }
-
+  // Method To Remove Product
+  RemoveProduct(_productItem : Product): void{
+    this.productsArray.splice(this.productsArray.indexOf(this.productItem),1);
+  }
 }
 
