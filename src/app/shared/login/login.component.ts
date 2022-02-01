@@ -18,9 +18,7 @@ export class LoginComponent implements OnInit {
       (res)=>{
         console.log(res);
         sessionStorage.setItem('token',res.token)
-      },
-      ()=>{},
-      ()=>{}
+      }
     )
   }
 }

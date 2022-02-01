@@ -32,6 +32,6 @@ export class ProductDetailsComponent implements OnInit {
   )
    }
    getRealtedProducts(){
-     this.relatedProducts = this.productService.getAllProducts().slice(0,4);
+    //  this.relatedProducts = this.productService.getAllProducts().slice(0,4);
    }
    }

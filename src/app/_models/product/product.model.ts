@@ -16,3 +16,7 @@ export interface Product{
     tags:Tag[];
     paymentTypes:PaymentType[];
 }
+export interface ALLProductResponse {
+    product:Product[],
+    numberOfProducts:number
+}

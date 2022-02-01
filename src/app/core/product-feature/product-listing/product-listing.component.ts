@@ -8,15 +8,20 @@ import { ProductService } from 'src/app/_services/product/product.service';
   styleUrls: ['./product-listing.component.scss']
 })
 export class ProductListingComponent implements OnInit {
-  productsArray: Product[];
+  productsArray!: Product[];
   // @Output()
   itemAdded: EventEmitter<Product> = new EventEmitter<Product>();
   constructor(private productService: ProductService) 
   { 
-    this.productsArray=this.productService.productsArray;
+    // this.productsArray=this.productService.productsArray;
   }
 
   ngOnInit(): void {
+    this.productService.getAllProducts().subscribe(
+      (res)=>{
+        this.productsArray=res.product;
+      }
+    )
   }
 //  Before Using Services :D
   // onitemAddedToCart(product:Product){

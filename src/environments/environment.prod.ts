@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
-  // baseUrl: 'link API without last Path /lastPath '
+  production: true.valueOf(),
+  baseUrl: 'https://mearn-stack-backend-test.herokuapp.com/'
 };

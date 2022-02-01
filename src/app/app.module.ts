@@ -37,7 +37,7 @@ import { LoginComponent } from './shared/login/login.component'
     FormsModule,
     HttpClientModule
   ],
-  providers: [ProductService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
