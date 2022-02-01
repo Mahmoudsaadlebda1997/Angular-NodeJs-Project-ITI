@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/_models/product/product.model';
 import { ProductService } from 'src/app/_services/product/product.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -9,37 +10,28 @@ import { ProductService } from 'src/app/_services/product/product.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  product = {} as Product
-  relatedProducts!: Product[]
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private productService: ProductService) { }
+
+
+  product :Product = {} as Product;
+  relatedProducts!:Product[];
+
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.params['id']);
-    this.getProductById()
-    this.getRelatedProducts()
+    this.getProductById();
+    this.getRealtedProducts();
   }
-
-  getProductById() {
+  getProductById(){
     this.activatedRoute.params.subscribe(
-      (params) => {
-        const id = Number(params['id'])
+      (params)=>{
+        var id =  +this.activatedRoute.snapshot.params['productid'];
         console.log(params);
-        
-        this.product = this.productService.getProductById(id)!
+        this.product = this.productService.getProductById(id)!;
         console.log(this.product);
-      }
-    )
-  }
-  
-  getRelatedProducts() {
-    // this.relatedProducts = this.productService.getAllProducts().slice(0, 4)
-  }
-  onItemAdded() {
-    console.log(this.product);
-    this.productService.addProductToCart(this.product)
-  }
-
-
-}
+      }  
+  )
+   }
+   getRealtedProducts(){
+     this.relatedProducts = this.productService.getAllProducts().slice(0,4);
+   }
+   }
